@@ -1,5 +1,6 @@
 import random
 survived = True
+points = 0
 def introduction():
   print("You are poor. Your betroved has left you. Life is looking grim.")
   print("You hear that there is a dungeon nearby that promises gold to those who conquer it.")
@@ -18,11 +19,8 @@ def straight():
 print("")
 
 def monster():
-  global total_points
-  global points
   global survived
-  
-  points = 0
+  global points
   survived = True
   chance_of_monster = random.randint(1,4)
   monster_attack_prob = random.randint(1,2)
@@ -56,6 +54,7 @@ def monster():
       survived = True
 
 def randomization():
+  global survived
   stored = []
   if random.randint(1,2) == 2:
     left()
@@ -72,14 +71,14 @@ def randomization():
   answer = input("Which direction would you like to go? ")
   if answer in stored:
     print ("You move " + answer)
-    
+    monster()
   elif stored == []:
     print("You entered a dead end and died from suffocation")
     survived = False
-    return survived
   elif answer not in stored and stored != []:
     print("That was not an option. Due to your stupidity, you ran into a wall and died.")
     survived = False
+
     return survived
 
     
@@ -98,6 +97,17 @@ while survived == True:
   print("Points: " + str(total_points))
   print(" --")
   print(" -")
+randomization()
+
+
+ 
+print("Rooms survived: " + str(points))
+while survived == True:
+  randomization()
+  print("Rooms survived: " + str(points))
+  print(" ")
+  print()
+
 else:
   print("Your failed life flashes before your eyes . . . ")
   print("You died")
