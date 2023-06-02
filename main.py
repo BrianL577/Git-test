@@ -54,7 +54,6 @@ def monster():
       print("You successfuly completed the course.")
       points += 1
       survived = True
-monster()
 
 def randomization():
   stored = []
@@ -70,7 +69,7 @@ def randomization():
     straight()
     s = "straight"
     stored.append(s)
-  answer = input("Which direction would you like to go?")
+  answer = input("Which direction would you like to go? ")
   if answer in stored:
     print ("You move " + answer)
     
@@ -82,19 +81,25 @@ def randomization():
     print("That was not an option. Due to your stupidity, you ran into a wall and died.")
     survived = False
     return survived
+
+    
 randomization()
-
-
+monster()
 total_points = 0
 total_points += points 
 print("Points: " + str(total_points))
+print(" --")
+print(" -")
+
 while survived == True:
   randomization()
+  monster()
   total_points += points 
   print("Points: " + str(total_points))
-  print(" ")
+  print(" --")
+  print(" -")
 else:
+  print("Your failed life flashes before your eyes . . . ")
   print("You died")
   print("ಥ_ಥ")
-  
 
