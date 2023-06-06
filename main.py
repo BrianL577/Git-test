@@ -9,6 +9,19 @@ def introduction():
 
 introduction()
 
+#-SERIALIZATION-#
+import pickle
+from os import path
+def save(points, file):
+  with open(file, "wb") as f:
+    pickle.dump(points, f)
+def load(file):
+  if path.exists(file):
+    with open(file, "rb") as f:
+      return pickle.load(f)
+    return None
+#-SERIALIZATION END-#
+
 
 
 def left():
@@ -77,10 +90,9 @@ def randomization():
   answer = input("Which direction would you like to go? ")
   if answer in stored:
     print ("You move " + answer)
-  elif answer not in stored and stored != []:
-    print("That was not an option. Due to your stupidity, you ran into a wall and died.")
-    survived = False
-    return survived
+  while answer not in stored:
+    answer = input("That was not an option. Which direction would you like to go?")
+
  
 total_points = 0
 total_points += points 
@@ -105,6 +117,14 @@ else:
   print("Your failed life flashes before your eyes . . . ")
   print("You died")
   print("ಥ_ಥ")
+  #-SERIALIZATION 2 -#
+  save(total_points, "high_scores.pkl")
+  print("Your high score is: ")
+  if "high_scores.pkl" == None:
+    print("N/A")
+  else:
+    load(max("high_scores.pkl"))
+  #-SERIALIZATION 2 END -#
 
 
 
