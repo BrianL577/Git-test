@@ -1,1 +1,1 @@
-# Made by Albert and Brian, a little gambling game with a bit of stor
+# Made by Albert and Brian, a little gambling game with a bit of story
