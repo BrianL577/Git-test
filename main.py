@@ -77,6 +77,10 @@ def randomization():
     straight()
     s = "straight"
     stored.append(s)
+  elif stored == []:
+    straight()
+    left()
+    right()
   answer = input("Which direction would you like to go? ")
   if answer in stored:
     print ("You move " + answer)
