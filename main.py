@@ -12,14 +12,15 @@ introduction()
 #-SERIALIZATION-#
 import pickle
 from os import path
-def save(points, file):
-  with open(file, "ab") as f:
-    pickle.dump(points, f)
+def save(object, file):
+  with open(file, "wb") as f:
+    pickle.dump(object, f)
 def load(file):
   if path.exists(file):
     with open(file, "rb") as f:
       return pickle.load(f)
     return None
+
 #-SERIALIZATION END-#
 
 
@@ -100,10 +101,15 @@ def randomization():
     answer = input("That was not an option. Which direction would you like to go?").lower()
 
  
-total_points = 0
-total_points += points 
+
 print(" --")
 print(" -")
+"""
+high_score_file = "high_scores.pkl"
+high_scores = load(high_score_file)
+if high_scores is None:
+  high_scores = {}
+"""
 while survived:
   randomization()
   monster()
@@ -122,11 +128,25 @@ else:
   print("Your failed life flashes before your eyes . . . ")
   print("You died")
   print("ಥ_ಥ")
+  
   #-SERIALIZATION 2 -#
-  save(total_points, "high_scores.pkl")
-  print("Your high score is: ")
-  if "high_scores.pkl" == None:
-    print("N/A")
+  #save(points, high_score_file)
+
+
+  #print high score
+  
+  print("Your previous score is: ")
+  score_file = "scores.pkl"
+  scores = load(score_file)
+  if scores is None:
+    print("You have no previous scores")
   else:
-    print(max(load("high_scores.pkl")))
-  #-SERIALIZATION 2 END -#
+    print(scores)
+    
+  
+  #save
+  save(points, score_file)
+
+  
+    
+  
