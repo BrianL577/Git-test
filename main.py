@@ -13,7 +13,7 @@ introduction()
 import pickle
 from os import path
 def save(points, file):
-  with open(file, "wb") as f:
+  with open(file, "ab") as f:
     pickle.dump(points, f)
 def load(file):
   if path.exists(file):
@@ -85,18 +85,23 @@ def randomization():
     stored.append(s)
   elif stored == []:
     straight()
+    s = "straight"
+    stored.append(s)
     left()
+    l = "left"
+    stored.append(l)
     right()
-  answer = input("Which direction would you like to go? ")
+    r = "right"
+    stored.append(r)
+  answer = input("Which direction would you like to go? ").lower()
   if answer in stored:
     print ("You move " + answer)
   while answer not in stored:
-    answer = input("That was not an option. Which direction would you like to go?")
+    answer = input("That was not an option. Which direction would you like to go?").lower()
 
  
 total_points = 0
 total_points += points 
-print("Points: " + str(total_points))
 print(" --")
 print(" -")
 while survived:
@@ -123,130 +128,5 @@ else:
   if "high_scores.pkl" == None:
     print("N/A")
   else:
-    load(max("high_scores.pkl"))
+    print(max(load("high_scores.pkl")))
   #-SERIALIZATION 2 END -#
-
-
-
-
-
-
-
-"""
-#|--Not New Code--|#
-dungeon_map = [["Start", "Monster", "Empty"], 
-               ["Empty", "Obstacle", "Monster"], 
-               ["Monster", "Treasure", "Stairs Up"]]
-
-class Player:
-  x = 0
-  y = 0
-  is_alive = True
-
-  def move(self, options):
-    selection = input("Select an option: ")
-
-    while not selection in options:
-      selection = input("That wasn't a choice, try again: ")
-
-    if selection == "Right":
-      self.x += 1
-    elif selection == "Left":
-      self.x -= 1
-    elif selection == "Up":
-      self.y -= 1
-    elif selection == "Down":
-      self.y += 1
-    
-def list_options(player: Player):
-  options = []
-  
-  if not player.x + 1 > len(dungeon_map[player.y]) - 1: 
-    options.append("Right")
-  if not player.x - 1 < 0:
-    options.append("Left")
-  if not player.y + 1 > len(dungeon_map) - 1:
-    options.append("Down")
-  if not player.y - 1 < 0:
-    options.append("Up")
-
-  print("You can move")
-  for option in options:
-    print(option)
-  return options
-
-def check_encounter(player):
-  current_room = dungeon_map[player.y][player.x]
-  if current_room == "Monster":
-    monster_encounter(player)
-  elif current_room == "Empty":
-    print("You enter an empty room")
-  elif current_room == "Obstacle":
-    obstacle_encounter(player)
-  elif current_room == "Treasure":
-    print("You found treasure!")
-  elif current_room == "Start":
-    print("You have ended up where you started")
-  elif current_room == "Stairs Up":
-    print("You travel up and find yourself in another labrynth.")
-  else:
-    print("You escaped the dungeon with a hefty reward!")
-    player.is_alive == False
-
-def monster_encounter(player):
-  print("You encountered a monster!")
-  survival_chance = random.randint(1,2)
-  if survival_chance == 1:
-    print("You died. ಥ_ಥ")
-    player.is_alive = False
-  else:
-    print("You survived.")
-    
-def obstacle_encounter(player):
-  print("You have entered an obstacle course")
-  survival_chance = random.randint(1,2)
-  if survival_chance == 1:
-    print("You died. ಥ_ಥ")
-    player.is_alive = False
-  else:
-    print("You survived.")
-
-def generate_floor():
-  size = random.randint(2,9)
-
-  level = []
-  for i in range(size):
-    for j in range(size):
-      room = ""
-      if i == 0 and j == 0:
-        room = "Start"
-      else: 
-        if random.randint(1, 2) == 1:
-          room = "Empty"
-        elif random.randint(1, 2) == 1:
-          room = "Monster"
-        elif random.randint(1,2) == 1:
-          room = "Obstacle"
-        else:
-          room = "Treasure"
-      level[i][j] = room #-- Hard part end
-  
-
-def start_game_loop():
-  player = Player()
-
-  introduction()
-
-  while player.is_alive:
-    options = list_options(player)
-    player.move(options)
-    check_encounter(player)
-    
-print ("DUNGEON MAP: ")
-print("")
-print("Start           | Mysterious Room | Mysterious Room")
-print("Mysterious Room | Mysterious Room | Mysterious Room")
-print("Mysterious Room | Mysterious Room | Stairs up      ")
-print("")
-start_game_loop()
-"""
